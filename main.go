@@ -29,6 +29,7 @@ func main() {
 	b.Handle("/start", commands.Start)
 	b.Handle("/help", commands.Help)
 	b.Handle("/dig", commands.Dig)
+	b.Handle("/man", commands.Man)
 
 	b.Start()
 }
