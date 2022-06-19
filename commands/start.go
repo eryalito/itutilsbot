@@ -1,6 +1,6 @@
 package commands
 
-import(
+import (
 	tele "gopkg.in/telebot.v3"
 )
 

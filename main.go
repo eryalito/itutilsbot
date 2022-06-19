@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/eryalus/itutilsbot/commands"
 	"log"
 	"os"
 	"time"
-	"github.com/eryalus/itutilsbot/commands"
 
 	tele "gopkg.in/telebot.v3"
 )
@@ -25,7 +25,7 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-	
+
 	b.Handle("/start", commands.Start)
 	b.Handle("/help", commands.Help)
 	b.Handle("/base64", commands.Base64)

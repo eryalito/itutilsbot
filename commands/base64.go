@@ -1,13 +1,13 @@
 package commands
 
-import(
+import (
 	"bytes"
 	"flag"
 	"io"
 	"os"
 	"strings"
-	
-    b64 "encoding/base64"
+
+	b64 "encoding/base64"
 	tele "gopkg.in/telebot.v3"
 )
 
@@ -16,7 +16,7 @@ func Base64(c tele.Context) error {
 	digCmd := flag.NewFlagSet("base64", flag.ContinueOnError)
 	decodeFlag := digCmd.Bool("d", false, "Set in decode mode")
 	if len(fields) < 2 {
-		return c.Reply("Usage: /base64 \\<parameters\\> text\n\nUse `/base64 \\-\\-help` to list the parameters", tele.ModeMarkdownV2 )
+		return c.Reply("Usage: /base64 \\<parameters\\> text\n\nUse `/base64 \\-\\-help` to list the parameters", tele.ModeMarkdownV2)
 	}
 	// flag processing prints to stderr on errors or help, so stderr must be captured, dump into a variable and restored to show it to the user
 	old := os.Stderr // keep backup of the real stdout
@@ -35,10 +35,10 @@ func Base64(c tele.Context) error {
 	w.Close()
 	os.Stderr = old // restoring the real stdout
 	val := <-outC
-	if err!=nil {	
+	if err != nil {
 		return c.Reply(val)
 	}
-	
+
 	var data string
 	if *decodeFlag {
 		data = strings.Join(fields[2:], "")

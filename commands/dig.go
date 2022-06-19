@@ -1,14 +1,14 @@
 package commands
 
-import(
+import (
+	"bytes"
+	"flag"
 	"fmt"
 	"github.com/lixiangzhong/dnsutil"
-	"flag"
-	"strings"
-	"os"
-	"io"
-	"bytes"
 	tele "gopkg.in/telebot.v3"
+	"io"
+	"os"
+	"strings"
 )
 
 func Dig(c tele.Context) error {
@@ -18,7 +18,7 @@ func Dig(c tele.Context) error {
 	digServer := digCmd.String("server", "8.8.8.8", "DNS Server to send the request")
 
 	if len(fields) < 2 {
-		return c.Reply("Usage: /dig \\<parameters\\> query\n\nUse `/dig \\-\\-help` to list the parameters", tele.ModeMarkdownV2 )
+		return c.Reply("Usage: /dig \\<parameters\\> query\n\nUse `/dig \\-\\-help` to list the parameters", tele.ModeMarkdownV2)
 	}
 	query := fields[len(fields)-1]
 	// flag processing prints to stderr on errors or help, so stderr must be captured, dump into a variable and restored to show it to the user
@@ -38,11 +38,11 @@ func Dig(c tele.Context) error {
 	w.Close()
 	os.Stderr = old // restoring the real stdout
 	val := <-outC
-	if err!=nil {	
+	if err != nil {
 		return c.Reply(val)
 	}
-    var dig dnsutil.Dig 
-    dig.SetDNS(*digServer)
+	var dig dnsutil.Dig
+	dig.SetDNS(*digServer)
 	var result interface{}
 	err = nil
 	switch *digType {
@@ -63,11 +63,11 @@ func Dig(c tele.Context) error {
 	default:
 		return c.Reply(fmt.Sprintf("Invalid type %s", *digType))
 	}
-	if err != nil{
+	if err != nil {
 		return c.Reply("Error processing query")
 	}
 	ret := fmt.Sprintf("%+q\n", result)
-	ret = strings.Replace(strings.Replace(strings.Replace(ret, "\" \"","\n", -1), "[\"", "", -1), "\"]", "", -1)
+	ret = strings.Replace(strings.Replace(strings.Replace(ret, "\" \"", "\n", -1), "[\"", "", -1), "\"]", "", -1)
 	ret = strings.Replace(ret, "\\t", "\t", -1)
 	return c.Reply(ret)
 }
