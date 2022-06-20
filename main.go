@@ -31,6 +31,7 @@ func main() {
 	b.Handle("/base64", commands.Base64)
 	b.Handle("/dig", commands.Dig)
 	b.Handle("/man", commands.Man)
+	b.Handle("/rfc", commands.RFC)
 
 	b.Start()
 }
