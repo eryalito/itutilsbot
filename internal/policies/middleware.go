@@ -15,3 +15,11 @@ func GetMiddlewareFunc_Allow(auth_config Authconfig) tele.MiddlewareFunc {
 		}
 	}
 }
+
+func GetMiddlewareFunc_Bypass() tele.MiddlewareFunc {
+	return func(h tele.HandlerFunc) tele.HandlerFunc {
+		return func(c tele.Context) error {
+			return h(c)
+		}
+	}
+}

@@ -10,18 +10,18 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const AUTH_CONFIG_FILE_PATH = "policies/auth/"
-
 type Authconfig struct {
 	Modules []struct {
 		Name string `yaml:"name"`
 		File string `yaml:"file"`
 	} `yaml:"modules"`
 	Queries []rego.PreparedEvalQuery
+	ConfigPath string
 }
 
-func (c *Authconfig) GetConfg() *Authconfig {
-	yamlFile, err := ioutil.ReadFile(AUTH_CONFIG_FILE_PATH + "config.yaml")
+func (c *Authconfig) GetConfg(ConfigPath string) *Authconfig {
+	c.ConfigPath = ConfigPath
+	yamlFile, err := ioutil.ReadFile(c.ConfigPath + "/config.yaml")
 	if err != nil {
 		log.Fatalf("yamlFile.Get err   #%v ", err)
 	}
@@ -34,7 +34,7 @@ func (c *Authconfig) GetConfg() *Authconfig {
 
 func (c *Authconfig) Init() {
 	for _, m2 := range c.Modules {
-		file, err := ioutil.ReadFile(AUTH_CONFIG_FILE_PATH + m2.File)
+		file, err := ioutil.ReadFile(c.ConfigPath + "/" + m2.File)
 		if err != nil {
 			log.Fatalf("yamlFile.Get err   #%v ", err)
 		}
