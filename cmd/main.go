@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/eryalus/itutilsbot/commands"
+	"github.com/eryalus/itutilsbot/internal/commands"
 	"log"
 	"os"
 	"time"
