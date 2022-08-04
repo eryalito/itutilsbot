@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/eryalus/itutilsbot/internal/commands"
+	"github.com/eryalus/itutilsbot/policies"
+
 	"log"
 	"os"
 	"time"
-
-	"github.com/eryalus/itutilsbot/commands"
-	"github.com/eryalus/itutilsbot/policies"
 
 	tele "gopkg.in/telebot.v3"
 )
