@@ -1,5 +1,4 @@
 ---
-val: asd
 modules:
   - name: main
     file: main.rego
